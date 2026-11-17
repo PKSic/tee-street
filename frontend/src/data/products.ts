@@ -216,11 +216,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     image_url: '/products/butterfly-chrome.png',
     images_by_color: makeProductImages('butterfly-chrome'),
     print_style: 'tokyo-glitch',
-    print_title: 'METAMORPHOSIS',
-    print_subtitle: 'LIQUID // 03',
+    print_title: 'BUTTERFLY // Y2K CHROME',
+    print_subtitle: 'METALLIC SOUL // SYSTEM.00',
     name: 'Butterfly Y2K Chrome Oversize Tee',
-    short_description: 'Жидкий хром Y2K с переливающейся неоновой бабочкой и четырехконечными звездами.',
-    description: 'Атмосферный кибер-стиль с контрастным сочетанием неона и жидкого металла на плотном оверсайзе.',
+    short_description: 'Жидкий хром Y2K с переливающейся неоновой бабочкой и принтом Y2K CHROME METALLIC SOUL.',
+    description: 'Премиальный оверсайз из плотного хлопка пенье 240 г/м². Культовая эстетика кибер-Y2K: жидкий хромированный металл с неоновыми бликами и звездами. Доступна в 4 реальных расцветках: Черный, Белый, Тёмный индиго и Графит.',
     variants: [],
   },
   {
@@ -322,7 +322,7 @@ export const PRODUCT_AVAILABLE_COLORS: Record<string, string[]> = {
   'prod-001': ['black-sesame', 'cold-ice', 'mana-cyan', 'acid-lime', 'cyber-pink', 'velvet-indigo'], // Все 6 цветов из реальных фото Ozon!
   'prod-002': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-003': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
-  'prod-004': ['black-sesame', 'cold-ice', 'cyber-pink'], // Черный, хром и кибер-розовый
+  'prod-004': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-005': ['black-sesame', 'acid-lime'], // Черный и кислотный лайм
   'prod-006': ['black-sesame', 'mana-cyan'], // Черный и циан космос
   'prod-007': ['black-sesame', 'cold-ice'], // Базовый черный и белый

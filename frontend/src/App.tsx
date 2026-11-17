@@ -90,9 +90,9 @@ export const App: React.FC = () => {
   // Данные магазина с локальной персистентностью и актуальными фото и остатками по цветам
   const [products, setProducts] = useState<Product[]>(() => {
     try {
-      const saved = localStorage.getItem('test_products_v7');
+      const saved = localStorage.getItem('test_products_v8');
       if (saved) return JSON.parse(saved);
-      localStorage.setItem('test_products_v7', JSON.stringify(INITIAL_PRODUCTS));
+      localStorage.setItem('test_products_v8', JSON.stringify(INITIAL_PRODUCTS));
       return INITIAL_PRODUCTS;
     } catch {
       return INITIAL_PRODUCTS;
@@ -154,7 +154,7 @@ export const App: React.FC = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem('test_products_v7', JSON.stringify(products));
+    localStorage.setItem('test_products_v8', JSON.stringify(products));
   }, [products]);
 
   useEffect(() => {
