@@ -193,11 +193,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     image_url: '/products/oni-cyber.png',
     images_by_color: makeProductImages('oni-cyber'),
     print_style: 'boss-purple',
-    print_title: 'SAMURAI // ONI',
-    print_subtitle: 'SECTOR 04',
+    print_title: 'ONI CYBER TOKYO',
+    print_subtitle: 'UNDERGROUND // CYBERNETIC',
     name: 'Oni Cyber Tokyo Heavyweight Tee',
-    short_description: 'Тяжелый хлопок 260 г/м² с неоновой маской кибер-самурая и надписью NEVER COMPLY.',
-    description: 'Тяжелый премиальный хлопок с мягкой бархатистой поверхностью. Усиленный воротник 3 см не растягивается после стирок.',
+    short_description: 'Тяжелый премиум-хлопок 260 г/м² с неоновой маской кибер-Они и принтом ONI CYBER TOKYO.',
+    description: 'Коллекционная оверсайз-футболка плотностью 260 г/м². Высокодетализированный многослойный принт маски кибер-Они в шлеме, устойчивый к 80+ стиркам. Доступна в 4 реальных цветах: Черный с неоном, Белый, Тёмный индиго и Графит.',
     variants: [],
   },
   {
@@ -321,7 +321,7 @@ export const INITIAL_PRODUCTS: Product[] = [
 export const PRODUCT_AVAILABLE_COLORS: Record<string, string[]> = {
   'prod-001': ['black-sesame', 'cold-ice', 'mana-cyan', 'acid-lime', 'cyber-pink', 'velvet-indigo'], // Все 6 цветов из реальных фото Ozon!
   'prod-002': ['black-sesame', 'cold-ice'], // Черный и вываренный светлый
-  'prod-003': ['black-sesame', 'velvet-indigo'], // Черный самурай и индиго
+  'prod-003': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-004': ['black-sesame', 'cold-ice', 'cyber-pink'], // Черный, хром и кибер-розовый
   'prod-005': ['black-sesame', 'acid-lime'], // Черный и кислотный лайм
   'prod-006': ['black-sesame', 'mana-cyan'], // Черный и циан космос
