@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   Star,
   ShoppingBag,
   Heart,
-  Truck,
-  ShieldCheck,
   Check,
   Plus,
   Minus,
-  MessageSquare,
   Sparkles,
 } from 'lucide-react';
 import type { Product, Size, Color, Review, Locale } from '../types';
@@ -44,11 +41,42 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   if (!product) return null;
 
   const t = translations[locale].productModal;
-  const [selectedSize, setSelectedSize] = useState<Size>(sizes[2] || sizes[0]);
-  const [selectedColor, setSelectedColor] = useState<Color>(colors[0]);
+
+  // Находим первый цвет, который реально в наличии у этого товара
+  const availableColors = colors.filter((c) =>
+    product.variants.some((v) => v.color_id === c.id && v.available > 0)
+  );
+  const initialColor = availableColors[0] || colors[0];
+
+  const availableSizes = sizes.filter((s) =>
+    product.variants.some((v) => v.color_id === initialColor.id && v.size_id === s.id && v.available > 0)
+  );
+  const initialSize = availableSizes.find((s) => s.code === 'M') || availableSizes[0] || sizes[0];
+
+  const [selectedColor, setSelectedColor] = useState<Color>(initialColor);
+  const [selectedSize, setSelectedSize] = useState<Size>(initialSize);
   const [qty, setQty] = useState(1);
   const [showSizeTable, setShowSizeTable] = useState(false);
   const [added, setAdded] = useState(false);
+
+  // При открытии нового товара сбрасываем выбор на доступные цвет и размер
+  useEffect(() => {
+    if (!product) return;
+    const firstColor = colors.find((c) =>
+      product.variants.some((v) => v.color_id === c.id && v.available > 0)
+    ) || colors[0];
+    setSelectedColor(firstColor);
+
+    const firstSize = sizes.find((s) =>
+      product.variants.some((v) => v.color_id === firstColor.id && v.size_id === s.id && v.available > 0 && s.code === 'M')
+    ) || sizes.find((s) =>
+      product.variants.some((v) => v.color_id === firstColor.id && v.size_id === s.id && v.available > 0)
+    ) || sizes[0];
+    setSelectedSize(firstSize);
+
+    setQty(1);
+    setAdded(false);
+  }, [product?.id]);
 
   const activeImageUrl = (product.images_by_color && product.images_by_color[selectedColor.code]) || product.image_url;
 
@@ -64,9 +92,40 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   const currentVariant = product.variants.find(
     (v) => v.size_id === selectedSize.id && v.color_id === selectedColor.id
   );
-  const stock = currentVariant?.available ?? 22;
+  const stock = currentVariant ? Math.max(0, currentVariant.available) : 0;
+  const inStock = stock > 0;
+
+  const handleSelectColor = (c: Color) => {
+    const isColorAvailable = product.variants.some((v) => v.color_id === c.id && v.available > 0);
+    if (!isColorAvailable) return;
+    setSelectedColor(c);
+
+    // Если текущий размер недоступен в новом цвете, переключаем на первый доступный
+    const isCurrentSizeAvailable = product.variants.some(
+      (v) => v.color_id === c.id && v.size_id === selectedSize.id && v.available > 0
+    );
+    if (!isCurrentSizeAvailable) {
+      const firstAvailable = sizes.find((s) =>
+        product.variants.some((v) => v.color_id === c.id && v.size_id === s.id && v.available > 0)
+      );
+      if (firstAvailable) {
+        setSelectedSize(firstAvailable);
+      }
+    }
+    setQty(1);
+  };
+
+  const handleSelectSize = (s: Size) => {
+    const isSizeAvailable = product.variants.some(
+      (v) => v.color_id === selectedColor.id && v.size_id === s.id && v.available > 0
+    );
+    if (!isSizeAvailable) return;
+    setSelectedSize(s);
+    setQty(1);
+  };
 
   const handleAddToCart = () => {
+    if (!inStock || stock <= 0 || !currentVariant || currentVariant.available <= 0) return;
     onAddToCart(product, selectedSize, selectedColor, qty);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
@@ -198,7 +257,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
           </div>
 
-          {/* Выбор цвета */}
+          {/* Выбор цвета (строгий запрет на выбор отсутствующих цветов) */}
           <div>
             <div className="flex justify-between items-center text-xs font-semibold text-slate-300 mb-2">
               <span>{t.selectColor}:</span>
@@ -210,13 +269,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 return (
                   <button
                     key={c.id}
-                    onClick={() => setSelectedColor(c)}
-                    className={`w-7 h-7 rounded-full border transition-all cursor-pointer relative ${
+                    type="button"
+                    disabled={!isColorAvailable}
+                    onClick={() => handleSelectColor(c)}
+                    className={`w-7 h-7 rounded-full border transition-all relative ${
                       selectedColor.id === c.id
-                        ? 'scale-110 border-[#00E6FF] ring-2 ring-[#00E6FF]/50 shadow-[0_0_10px_rgba(0,230,255,0.4)]'
+                        ? 'scale-110 border-[#00E6FF] ring-2 ring-[#00E6FF]/50 shadow-[0_0_10px_rgba(0,230,255,0.4)] cursor-pointer'
                         : isColorAvailable
-                        ? 'border-white/20 hover:scale-105'
-                        : 'border-white/10 opacity-40 hover:opacity-80'
+                        ? 'border-white/20 hover:scale-105 cursor-pointer'
+                        : 'border-white/10 opacity-25 cursor-not-allowed'
                     }`}
                     style={{ backgroundColor: c.hex_color }}
                     title={isColorAvailable ? c.name : `${c.name} (нет в наличии)`}
@@ -232,11 +293,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
           </div>
 
-          {/* Выбор размера + Таблица размеров */}
+          {/* Выбор размера + Таблица размеров (строгий запрет на выбор отсутствующих размеров) */}
           <div>
             <div className="flex justify-between items-center text-xs font-semibold text-slate-300 mb-2">
               <span>{t.selectSize}:</span>
               <button
+                type="button"
                 onClick={() => setShowSizeTable(!showSizeTable)}
                 className="text-xs text-[#00E6FF] hover:underline cursor-pointer"
               >
@@ -244,19 +306,29 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               </button>
             </div>
             <div className="grid grid-cols-6 gap-1.5">
-              {sizes.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => setSelectedSize(s)}
-                  className={`py-2 rounded-xl text-xs font-black border transition-all cursor-pointer ${
-                    selectedSize.id === s.id
-                      ? 'bg-[#00E6FF] text-[#0B0314] border-[#00E6FF] shadow-[0_0_15px_rgba(0,230,255,0.4)]'
-                      : 'bg-white/5 border-white/10 text-slate-300 hover:border-[#00E6FF]/40'
-                  }`}
-                >
-                  {s.code}
-                </button>
-              ))}
+              {sizes.map((s) => {
+                const isSizeAvailable = product.variants.some(
+                  (v) => v.color_id === selectedColor.id && v.size_id === s.id && v.available > 0
+                );
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    disabled={!isSizeAvailable}
+                    onClick={() => handleSelectSize(s)}
+                    className={`py-2 rounded-xl text-xs font-black border transition-all ${
+                      selectedSize.id === s.id && isSizeAvailable
+                        ? 'bg-[#00E6FF] text-[#0B0314] border-[#00E6FF] shadow-[0_0_15px_rgba(0,230,255,0.4)] cursor-pointer'
+                        : isSizeAvailable
+                        ? 'bg-white/5 border-white/10 text-slate-300 hover:border-[#00E6FF]/40 cursor-pointer'
+                        : 'bg-white/[0.02] border-white/5 text-slate-600 line-through cursor-not-allowed opacity-35'
+                    }`}
+                    title={isSizeAvailable ? s.name : `${s.name} (нет в наличии)`}
+                  >
+                    {s.code}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Таблица параметров размеров */}
@@ -283,7 +355,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               </div>
             )}
 
-            {stock > 0 ? (
+            {inStock ? (
               <div className="flex items-center gap-2 mt-2 text-xs">
                 <span className="w-2 h-2 rounded-full bg-[#9BD746] animate-ping" />
                 <span className="text-[#9BD746] font-semibold">В наличии на складе ({stock} шт.)</span>
@@ -291,7 +363,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             ) : (
               <div className="flex items-center gap-2 mt-2 text-xs">
                 <span className="w-2 h-2 rounded-full bg-red-400" />
-                <span className="text-red-400 font-semibold">Этого цвета пока нет в наличии для данной модели</span>
+                <span className="text-red-400 font-semibold">Этого размера или цвета нет в наличии</span>
               </div>
             )}
           </div>
@@ -300,15 +372,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           <div className="flex items-center gap-3 pt-2">
             <div className="flex items-center rounded-xl bg-black/40 border border-white/10 p-1">
               <button
-                disabled={stock === 0}
+                type="button"
+                disabled={!inStock || qty <= 1}
                 onClick={() => setQty(Math.max(1, qty - 1))}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-300 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 <Minus className="w-4 h-4" />
               </button>
-              <span className="w-8 text-center text-sm font-bold font-mono">{stock === 0 ? 0 : qty}</span>
+              <span className="w-8 text-center text-sm font-bold font-mono">{inStock ? qty : 0}</span>
               <button
-                disabled={stock === 0}
+                type="button"
+                disabled={!inStock || qty >= stock}
                 onClick={() => setQty(Math.min(stock, qty + 1))}
                 className="w-8 h-8 rounded-lg flex items-center justify-center text-slate-300 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed"
               >
@@ -317,18 +391,19 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
 
             <button
+              type="button"
               onClick={handleAddToCart}
-              disabled={stock === 0}
+              disabled={!inStock || stock <= 0}
               className={`flex-1 py-3.5 rounded-xl font-black text-sm flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(0,230,255,0.4)] ${
-                stock === 0
+                !inStock || stock <= 0
                   ? 'bg-white/10 text-slate-500 border border-white/10 cursor-not-allowed shadow-none'
                   : added
                   ? 'bg-[#9BD746] text-[#0B0314] cursor-pointer'
                   : 'bg-gradient-to-r from-[#00E6FF] to-[#7B2CBF] text-[#0B0314] hover:brightness-110 active:scale-95 cursor-pointer'
               }`}
             >
-              {stock === 0 ? (
-                'Нет в наличии в этом цвете'
+              {!inStock || stock <= 0 ? (
+                'Нет в наличии'
               ) : added ? (
                 <>
                   <Check className="w-4 h-4" />
@@ -376,7 +451,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       type="button"
                       key={star}
                       onClick={() => setReviewRating(star)}
-                      className="p-0.5 text-amber-400 hover:scale-110 transition-transform"
+                      className="p-0.5 text-amber-400 hover:scale-110 transition-transform cursor-pointer"
                     >
                       <Star
                         className={`w-4 h-4 ${
@@ -413,12 +488,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               />
               <button
                 type="submit"
-                className="px-4 py-2 rounded-xl bg-[#00E6FF] text-[#0B0314] font-bold text-xs hover:brightness-110"
+                className="px-4 py-2 rounded-xl bg-[#00E6FF] text-[#0B0314] font-bold text-xs hover:brightness-110 cursor-pointer"
               >
                 {t.submitReview}
               </button>
               {reviewSuccess && (
-                <span className="text-xs text-[#9BD746] ml-2">Спасибо! Отзыв опубликован.</span>
+                <span className="text-xs text-[#9BD746] ml-2 font-semibold">Спасибо! Отзыв опубликован.</span>
               )}
             </form>
 

@@ -22,8 +22,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
   onOpenDetails,
 }) => {
-  const [selectedSize, setSelectedSize] = useState<Size>(sizes[2] || sizes[0]); // default 'M'
-  const [selectedColor, setSelectedColor] = useState<Color>(colors[0]); // default 'black-sesame'
+  // Выбираем первый доступный цвет и размер в наличии
+  const availableColors = colors.filter((c) =>
+    product.variants.some((v) => v.color_id === c.id && v.available > 0)
+  );
+  const initialColor = availableColors[0] || colors[0];
+
+  const availableSizes = sizes.filter((s) =>
+    product.variants.some((v) => v.color_id === initialColor.id && v.size_id === s.id && v.available > 0)
+  );
+  const initialSize = availableSizes.find((s) => s.code === 'M') || availableSizes[0] || sizes[0];
+
+  const [selectedColor, setSelectedColor] = useState<Color>(initialColor);
+  const [selectedSize, setSelectedSize] = useState<Size>(initialSize);
   const [addedAnimation, setAddedAnimation] = useState(false);
 
   const activeImageUrl = (product.images_by_color && product.images_by_color[selectedColor.code]) || product.image_url;
@@ -31,11 +42,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   const currentVariant = product.variants.find(
     (v) => v.size_id === selectedSize.id && v.color_id === selectedColor.id
   );
-  const inStock = (currentVariant?.available ?? 15) > 0;
+  const inStock = Boolean(currentVariant && currentVariant.available > 0);
+
+  const handleSelectColor = (c: Color, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const isColorAvailable = product.variants.some((v) => v.color_id === c.id && v.available > 0);
+    if (!isColorAvailable) return;
+    setSelectedColor(c);
+
+    // Если текущий размер недоступен в выбранном цвете, переключаем на первый доступный
+    const isCurrentSizeAvailable = product.variants.some(
+      (v) => v.color_id === c.id && v.size_id === selectedSize.id && v.available > 0
+    );
+    if (!isCurrentSizeAvailable) {
+      const firstAvailable = sizes.find((s) =>
+        product.variants.some((v) => v.color_id === c.id && v.size_id === s.id && v.available > 0)
+      );
+      if (firstAvailable) {
+        setSelectedSize(firstAvailable);
+      }
+    }
+  };
 
   const handleAdd = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!inStock) return;
+    if (!inStock || !currentVariant || currentVariant.available <= 0) return;
     onAddToCart(product, selectedSize, selectedColor);
     setAddedAnimation(true);
     setTimeout(() => setAddedAnimation(false), 1200);
@@ -63,6 +94,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Кнопка «В избранное» */}
         <button
+          type="button"
           onClick={(e) => {
             e.stopPropagation();
             onToggleFavorite(product);
@@ -117,23 +149,22 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           )}
         </div>
 
-        {/* Селектор цвета ткани на карточке */}
+        {/* Селектор цвета ткани на карточке (строгий запрет на выбор отсутствующих цветов) */}
         <div className="flex items-center gap-1.5 mb-2.5">
-          {colors.slice(0, 5).map((c) => {
+          {colors.map((c) => {
             const isColorAvailable = product.variants.some((v) => v.color_id === c.id && v.available > 0);
             return (
               <button
                 key={c.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedColor(c);
-                }}
+                type="button"
+                disabled={!isColorAvailable}
+                onClick={(e) => handleSelectColor(c, e)}
                 className={`w-4 h-4 rounded-full border transition-all relative ${
                   selectedColor.id === c.id
                     ? 'scale-125 border-[#00E6FF] ring-2 ring-[#00E6FF]/40'
                     : isColorAvailable
-                    ? 'border-white/20 hover:scale-110'
-                    : 'border-white/10 opacity-35'
+                    ? 'border-white/20 hover:scale-110 cursor-pointer'
+                    : 'border-white/10 opacity-25 cursor-not-allowed'
                 }`}
                 style={{ backgroundColor: c.hex_color }}
                 title={isColorAvailable ? c.name : `${c.name} (нет в наличии)`}
@@ -167,21 +198,35 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         <p className="text-xs text-slate-400 mb-3.5 line-clamp-1">{product.fabric_composition}</p>
 
-        {/* Выбор размера */}
+        {/* Выбор размера (строгий запрет на выбор отсутствующих размеров) */}
         <div className="flex flex-wrap gap-1 mb-4" onClick={(e) => e.stopPropagation()}>
-          {sizes.map((s) => (
-            <button
-              key={s.id}
-              onClick={() => setSelectedSize(s)}
-              className={`px-2 py-0.5 text-xs font-bold rounded-md border transition-all cursor-pointer ${
-                selectedSize.id === s.id
-                  ? 'border-[#00E6FF] text-[#00E6FF] bg-[#00E6FF]/15 shadow-[0_0_8px_rgba(0,230,255,0.3)]'
-                  : 'border-white/10 text-slate-400 hover:border-[#00E6FF]/50 hover:text-slate-200'
-              }`}
-            >
-              {s.code}
-            </button>
-          ))}
+          {sizes.map((s) => {
+            const isSizeAvailable = product.variants.some(
+              (v) => v.color_id === selectedColor.id && v.size_id === s.id && v.available > 0
+            );
+            return (
+              <button
+                key={s.id}
+                type="button"
+                disabled={!isSizeAvailable}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!isSizeAvailable) return;
+                  setSelectedSize(s);
+                }}
+                className={`px-2 py-0.5 text-xs font-bold rounded-md border transition-all ${
+                  selectedSize.id === s.id && isSizeAvailable
+                    ? 'border-[#00E6FF] text-[#00E6FF] bg-[#00E6FF]/15 shadow-[0_0_8px_rgba(0,230,255,0.3)] cursor-pointer'
+                    : isSizeAvailable
+                    ? 'border-white/10 text-slate-400 hover:border-[#00E6FF]/50 hover:text-slate-200 cursor-pointer'
+                    : 'border-white/5 text-slate-600 bg-white/[0.02] line-through cursor-not-allowed opacity-35'
+                }`}
+                title={isSizeAvailable ? s.name : `${s.name} (нет в наличии)`}
+              >
+                {s.code}
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -199,14 +244,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         <button
+          type="button"
           onClick={handleAdd}
           disabled={!inStock}
-          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-xs transition-all shadow-[0_0_16px_rgba(0,230,255,0.35)] cursor-pointer ${
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl font-bold text-xs transition-all shadow-[0_0_16px_rgba(0,230,255,0.35)] ${
             addedAnimation
-              ? 'bg-[#9BD746] text-[#0B0314]'
+              ? 'bg-[#9BD746] text-[#0B0314] cursor-pointer'
               : inStock
-              ? 'bg-gradient-to-r from-[#00E6FF] to-[#7B2CBF] text-[#0B0314] hover:brightness-110 active:scale-95'
-              : 'bg-white/10 text-slate-500 cursor-not-allowed'
+              ? 'bg-gradient-to-r from-[#00E6FF] to-[#7B2CBF] text-[#0B0314] hover:brightness-110 active:scale-95 cursor-pointer'
+              : 'bg-white/10 text-slate-500 cursor-not-allowed shadow-none'
           }`}
         >
           {addedAnimation ? (

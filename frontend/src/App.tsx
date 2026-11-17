@@ -241,18 +241,29 @@ export const App: React.FC = () => {
 
   const t = translations[locale];
 
-  // Корзина: добавить товар
+  // Корзина: добавить товар (со строгой проверкой наличия на складе)
   const handleAddToCart = (product: Product, size: Size, color: Color, quantity: number = 1) => {
+    const variant = product.variants.find(
+      (v) => v.size_id === size.id && v.color_id === color.id
+    );
+    if (!variant || variant.available <= 0) {
+      console.warn('Попытка добавить товар не в наличии:', product.name, size.code, color.name);
+      return;
+    }
+
+    const safeQty = Math.min(quantity, variant.available);
     const variantId = `var-${product.model_sku}-${size.code}-${color.code.substring(0, 3).toUpperCase()}`.toLowerCase();
+
     setCart((prev) => {
       const existing = prev.find((item) => item.variant_id === variantId);
       if (existing) {
+        const newTotalQty = Math.min(existing.quantity + safeQty, variant.available);
         return prev.map((item) =>
           item.variant_id === variantId
             ? {
                 ...item,
-                quantity: item.quantity + quantity,
-                line_total: (item.quantity + quantity) * item.unit_price,
+                quantity: newTotalQty,
+                line_total: newTotalQty * item.unit_price,
               }
             : item
         );
@@ -265,9 +276,9 @@ export const App: React.FC = () => {
           product,
           size,
           color,
-          quantity,
+          quantity: safeQty,
           unit_price: product.base_price,
-          line_total: product.base_price * quantity,
+          line_total: product.base_price * safeQty,
         },
       ];
     });
@@ -278,10 +289,18 @@ export const App: React.FC = () => {
       prev
         .map((item) => {
           if (item.variant_id === variantId) {
+            const variant = item.product.variants.find(
+              (v) => v.size_id === item.size.id && v.color_id === item.color.id
+            );
+            const maxStock = variant ? variant.available : 99;
             const newQty = item.quantity + delta;
-            return newQty > 0
-              ? { ...item, quantity: newQty, line_total: newQty * item.unit_price }
-              : null;
+            if (newQty <= 0) return null;
+            if (delta > 0 && newQty > maxStock) return item; // Запрет превышать реальный остаток
+            return {
+              ...item,
+              quantity: newQty,
+              line_total: newQty * item.unit_price,
+            };
           }
           return item;
         })
@@ -356,10 +375,10 @@ export const App: React.FC = () => {
       );
     }
 
-    // Фильтр по размеру
+    // Фильтр по размеру (только товары с размером в наличии)
     if (selectedSizeFilter) {
       result = result.filter((p) =>
-        p.variants.some((v) => v.sku.includes(`-${selectedSizeFilter}-`))
+        p.variants.some((v) => v.sku.includes(`-${selectedSizeFilter}-`) && v.available > 0)
       );
     }
 

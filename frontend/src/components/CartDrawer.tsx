@@ -200,26 +200,40 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <button
                       onClick={() => onRemoveItem(item.variant_id)}
                       className="text-slate-400 hover:text-red-400 transition-colors p-1"
+                      title="Удалить из корзины"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
-                    <div className="flex items-center rounded-lg bg-black/40 border border-white/10 p-0.5">
-                      <button
-                        onClick={() => onUpdateQty(item.variant_id, -1)}
-                        className="w-6 h-6 rounded flex items-center justify-center text-slate-300 hover:bg-white/10"
-                      >
-                        <Minus className="w-3 h-3" />
-                      </button>
-                      <span className="w-6 text-center text-xs font-bold font-mono">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() => onUpdateQty(item.variant_id, 1)}
-                        className="w-6 h-6 rounded flex items-center justify-center text-slate-300 hover:bg-white/10"
-                      >
-                        <Plus className="w-3 h-3" />
-                      </button>
-                    </div>
+                    {(() => {
+                      const variant = item.product.variants.find(
+                        (v) => v.size_id === item.size.id && v.color_id === item.color.id
+                      );
+                      const maxStock = variant ? variant.available : 99;
+                      const isMax = item.quantity >= maxStock;
+                      return (
+                        <div className="flex items-center rounded-lg bg-black/40 border border-white/10 p-0.5">
+                          <button
+                            type="button"
+                            onClick={() => onUpdateQty(item.variant_id, -1)}
+                            className="w-6 h-6 rounded flex items-center justify-center text-slate-300 hover:bg-white/10 cursor-pointer"
+                          >
+                            <Minus className="w-3 h-3" />
+                          </button>
+                          <span className="w-6 text-center text-xs font-bold font-mono">
+                            {item.quantity}
+                          </span>
+                          <button
+                            type="button"
+                            disabled={isMax}
+                            onClick={() => onUpdateQty(item.variant_id, 1)}
+                            className="w-6 h-6 rounded flex items-center justify-center text-slate-300 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+                            title={isMax ? 'Достигнут максимум остатка на складе' : 'Добавить еще'}
+                          >
+                            <Plus className="w-3 h-3" />
+                          </button>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               ))
