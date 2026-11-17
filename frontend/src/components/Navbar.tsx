@@ -62,15 +62,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const cycleTheme = () => {
-    if (theme === 'dark') setTheme('light');
-    else if (theme === 'light') setTheme('system');
-    else setTheme('dark');
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
   const getThemeIcon = () => {
-    if (theme === 'dark') return <Moon className="w-4 h-4 text-[#00E6FF]" />;
     if (theme === 'light') return <Sun className="w-4 h-4 text-amber-400" />;
-    return <Monitor className="w-4 h-4 text-purple-400" />;
+    return <Moon className="w-4 h-4 text-[#00E6FF]" />;
   };
 
   return (
@@ -239,7 +236,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={cycleTheme}
             className="hidden sm:flex p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 transition-colors cursor-pointer"
-            title={`Тема: ${theme} (нажмите для смены)`}
+            title={theme === 'light' ? 'Светлая тема (кликните для темной)' : 'Темная тема (кликните для светлой)'}
           >
             {getThemeIcon()}
           </button>
@@ -440,10 +437,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={cycleTheme}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 text-[11px] font-mono text-slate-300"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-slate-200 cursor-pointer"
             >
               {getThemeIcon()}
-              <span className="capitalize">{theme}</span>
+              <span>{theme === 'light' ? 'Светлая тема' : 'Темная тема'}</span>
             </button>
           </div>
 

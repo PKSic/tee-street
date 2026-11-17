@@ -3,14 +3,13 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* =====================================================================
-   TEE STREET — CYBER CRIMSON & BLOOD RED (OFFICIAL RELEASE DESIGN)
-   =====================================================================
-   Глубокий угольно-черный обсидиан, агрессивный алый неон #FF1E44,
-   кристально четкий высококонтрастный текст и рубиновое свечение.
+   TEE STREET — CYBER CRIMSON (DARK THEME & LIGHT THEME)
    ===================================================================== */
 
-:root, [data-theme="crimson"] {
-  --t-theme-name: "Cyber Crimson";
+/* ТЕМНАЯ ТЕМА (DARK CYBER CRIMSON) — ПО УМОЛЧАНИЮ */
+:root,
+.dark {
+  --t-theme-name: "Cyber Crimson Dark";
   --t-bg-app: #080305;
   --t-bg-surface: #12060A;
   --t-bg-elevated: #1D0A11;
@@ -38,6 +37,41 @@
   --t-radial-2: rgba(225, 29, 72, 0.09);
 
   --t-gradient: linear-gradient(135deg, #FF1E44 0%, #E11D48 50%, #9F1239 100%);
+  --t-gradient-btn: linear-gradient(135deg, #FF1E44 0%, #E11D48 100%);
+}
+
+/* СВЕТЛАЯ ТЕМА (LIGHT CRIMSON LUXURY STREETWEAR) */
+.light,
+html.light,
+html.light body {
+  --t-theme-name: "Cyber Crimson Light";
+  --t-bg-app: #F8FAFC;
+  --t-bg-surface: #FFFFFF;
+  --t-bg-elevated: #F1F5F9;
+  --t-bg-dark: #E2E8F0;
+  --t-bg-card: rgba(255, 255, 255, 0.95);
+  --t-bg-card-hover: #FFFFFF;
+
+  --t-accent: #E11D48;
+  --t-accent-sec: #BE123C;
+  --t-accent-hl: #FF1E44;
+  --t-accent-rgb: 225, 29, 72;
+  --t-accent-glow: rgba(225, 29, 72, 0.25);
+
+  --t-btn-text: #FFFFFF;
+  --t-btn-bg: #E11D48;
+
+  --t-border: rgba(225, 29, 72, 0.18);
+  --t-border-hover: rgba(225, 29, 72, 0.65);
+
+  --t-text-main: #0F172A;
+  --t-text-muted: #334155;
+  --t-text-subtle: #475569;
+
+  --t-radial-1: rgba(225, 29, 72, 0.05);
+  --t-radial-2: rgba(244, 63, 94, 0.03);
+
+  --t-gradient: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
   --t-gradient-btn: linear-gradient(135deg, #FF1E44 0%, #E11D48 100%);
 }
 
@@ -71,24 +105,69 @@ code, .font-mono {
 }
 
 /* =====================================================================
-   ВЫСОКОКОНТРАСТНАЯ ЧИТАЕМОСТЬ ТЕКСТА
+   ВЫСОКОКОНТРАСТНАЯ ЧИТАЕМОСТЬ ТЕКСТА (DARK & LIGHT)
    ===================================================================== */
 
-/* Осветляем приглушенные оттенки slate для максимальной контрастности */
-.text-slate-400 {
+/* ТЕМНАЯ ТЕМА — Яркие серебристые оттенки текста */
+.dark .text-slate-400 {
   color: #CBD5E1 !important;
 }
+.dark .text-slate-500 {
+  color: #94A3B8 !important;
+}
+.dark .text-slate-300 {
+  color: #F1F5F9 !important;
+}
+.dark .text-slate-200 {
+  color: #F8FAFC !important;
+}
+.dark .text-slate-100 {
+  color: #FFFFFF !important;
+}
 
-.text-slate-500 {
+/* СВЕТЛАЯ ТЕМА — Четкие контрастные темные оттенки текста */
+.light .text-slate-400 {
+  color: #475569 !important;
+}
+.light .text-slate-500 {
+  color: #64748B !important;
+}
+.light .text-slate-300 {
+  color: #334155 !important;
+}
+.light .text-slate-200 {
+  color: #1E293B !important;
+}
+.light .text-slate-100 {
+  color: #0F172A !important;
+}
+
+.light h1.text-white,
+.light h2.text-white,
+.light h3.text-white,
+.light h4.text-white,
+.light p.text-white,
+.light div.text-white:not([class*="bg-black"]):not([class*="bg-gradient"]):not(button *),
+.light span.text-white:not([class*="bg-black"]):not([class*="bg-gradient"]):not(button *) {
+  color: #0F172A !important;
+}
+
+.light .bg-white\/5,
+.light .bg-white\/10 {
+  background-color: rgba(15, 23, 42, 0.05) !important;
+}
+
+.light .border-white\/10,
+.light .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.light .placeholder-slate-400::placeholder {
   color: #94A3B8 !important;
 }
 
-.text-slate-300 {
-  color: #F1F5F9 !important;
-}
-
 /* =====================================================================
-   ФОНЫ И ПОВЕРХНОСТИ (CYBER CRIMSON)
+   ФОНЫ И ПОВЕРХНОСТИ
    ===================================================================== */
 
 body,
@@ -108,6 +187,28 @@ body,
 .bg-\[\#160A29\],
 .bg-\[\#2D0F4B\] {
   background-color: var(--t-bg-elevated) !important;
+}
+
+/* Карточки и модалки в светлой теме */
+.light .bg-\[\#120722\] {
+  background-color: var(--t-bg-app) !important;
+}
+
+.light .bg-\[\#1E0C38\] {
+  background-color: #FFFFFF !important;
+}
+
+.light .bg-\[\#0B0314\] {
+  background-color: #F1F5F9 !important;
+}
+
+/* Шапка навигации */
+.dark header.bg-\[\#120722\]\/90 {
+  background-color: rgba(8, 3, 5, 0.92) !important;
+}
+
+.light header.bg-\[\#120722\]\/90 {
+  background-color: rgba(255, 255, 255, 0.92) !important;
 }
 
 /* =====================================================================
@@ -143,35 +244,35 @@ body,
 }
 
 .border-\[\#00E6FF\]\/10 {
-  border-color: rgba(255, 30, 68, 0.12) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 12%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/15 {
-  border-color: rgba(255, 30, 68, 0.18) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 18%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/20 {
-  border-color: rgba(255, 30, 68, 0.24) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 24%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/30 {
-  border-color: rgba(255, 30, 68, 0.35) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 35%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/40 {
-  border-color: rgba(255, 30, 68, 0.45) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 45%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/50 {
-  border-color: rgba(255, 30, 68, 0.55) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 55%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/60 {
-  border-color: rgba(255, 30, 68, 0.65) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 65%, transparent) !important;
 }
 
 .border-\[\#00E6FF\]\/80 {
-  border-color: rgba(255, 30, 68, 0.85) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 85%, transparent) !important;
 }
 
 /* =====================================================================
@@ -184,23 +285,23 @@ body,
 }
 
 .bg-\[\#00E6FF\]\/5 {
-  background-color: rgba(255, 30, 68, 0.05) !important;
+  background-color: color-mix(in srgb, var(--t-accent) 5%, transparent) !important;
 }
 
 .bg-\[\#00E6FF\]\/10 {
-  background-color: rgba(255, 30, 68, 0.12) !important;
+  background-color: color-mix(in srgb, var(--t-accent) 12%, transparent) !important;
 }
 
 .bg-\[\#00E6FF\]\/15 {
-  background-color: rgba(255, 30, 68, 0.18) !important;
+  background-color: color-mix(in srgb, var(--t-accent) 18%, transparent) !important;
 }
 
 .bg-\[\#00E6FF\]\/20 {
-  background-color: rgba(255, 30, 68, 0.24) !important;
+  background-color: color-mix(in srgb, var(--t-accent) 24%, transparent) !important;
 }
 
 .bg-\[\#00E6FF\]\/30 {
-  background-color: rgba(255, 30, 68, 0.35) !important;
+  background-color: color-mix(in srgb, var(--t-accent) 35%, transparent) !important;
 }
 
 /* =====================================================================
@@ -221,11 +322,11 @@ body,
 }
 
 .hover\:border-\[\#00E6FF\]\/60:hover {
-  border-color: rgba(255, 30, 68, 0.7) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 70%, transparent) !important;
 }
 
 .hover\:border-\[\#00E6FF\]\/80:hover {
-  border-color: rgba(255, 30, 68, 0.9) !important;
+  border-color: color-mix(in srgb, var(--t-accent) 90%, transparent) !important;
 }
 
 /* =====================================================================
@@ -247,36 +348,43 @@ body,
 }
 
 /* =====================================================================
-   СВЕЧЕНИЕ И ТЕНИ (CRIMSON GLOW)
+   СВЕЧЕНИЕ И ТЕНИ
    ===================================================================== */
 
-.shadow-\[0_0_15px_rgba\(0\,230\,255\,0\.25\)\] {
+.dark .shadow-\[0_0_15px_rgba\(0\,230\,255\,0\.25\)\] {
   box-shadow: 0 0 15px rgba(255, 30, 68, 0.35) !important;
 }
-
-.shadow-\[0_0_20px_rgba\(0\,230\,255\,0\.3\)\] {
+.dark .shadow-\[0_0_20px_rgba\(0\,230\,255\,0\.3\)\] {
   box-shadow: 0 0 20px rgba(255, 30, 68, 0.4) !important;
 }
-
-.shadow-\[0_0_25px_rgba\(0\,230\,255\,0\.35\)\] {
+.dark .shadow-\[0_0_25px_rgba\(0\,230\,255\,0\.35\)\] {
   box-shadow: 0 0 25px rgba(255, 30, 68, 0.45) !important;
 }
-
-.shadow-\[0_0_30px_rgba\(0\,230\,255\,0\.45\)\] {
+.dark .shadow-\[0_0_30px_rgba\(0\,230\,255\,0\.45\)\] {
   box-shadow: 0 0 30px rgba(255, 30, 68, 0.55) !important;
 }
-
-.shadow-\[0_0_35px_rgba\(0\,230\,255\,0\.65\)\] {
+.dark .shadow-\[0_0_35px_rgba\(0\,230\,255\,0\.65\)\] {
   box-shadow: 0 0 35px rgba(255, 30, 68, 0.75) !important;
+}
+
+.light .shadow-\[0_0_15px_rgba\(0\,230\,255\,0\.25\)\],
+.light .shadow-\[0_0_20px_rgba\(0\,230\,255\,0\.3\)\],
+.light .shadow-\[0_0_25px_rgba\(0\,230\,255\,0\.35\)\] {
+  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.12) !important;
+}
+
+.light .shadow-\[0_0_30px_rgba\(0\,230\,255\,0\.45\)\],
+.light .shadow-\[0_0_35px_rgba\(0\,230\,255\,0\.65\)\] {
+  box-shadow: 0 8px 25px rgba(225, 29, 72, 0.18) !important;
 }
 
 /* Фоновые радиальные свечения */
 .bg-\[radial-gradient\(circle_at_50\%_0\%\,rgba\(0\,230\,255\,0\.08\)\,transparent_50\%\)\] {
-  background-image: radial-gradient(circle at 50% 0%, rgba(255, 30, 68, 0.14), transparent 50%) !important;
+  background-image: radial-gradient(circle at 50% 0%, var(--t-radial-1), transparent 50%) !important;
 }
 
 .bg-\[radial-gradient\(circle_at_80\%_60\%\,rgba\(123\,44\,191\,0\.07\)\,transparent_50\%\)\] {
-  background-image: radial-gradient(circle at 80% 60%, rgba(225, 29, 72, 0.09), transparent 50%) !important;
+  background-image: radial-gradient(circle at 80% 60%, var(--t-radial-2), transparent 50%) !important;
 }
 
 /* Glassmorphism утилиты */
@@ -289,7 +397,7 @@ body,
 
 .glass-panel-hover:hover {
   border-color: var(--t-border-hover);
-  box-shadow: 0 0 30px rgba(255, 30, 68, 0.35);
+  box-shadow: 0 0 30px var(--t-accent-glow);
 }
 
 /* Скроллбары */
@@ -306,12 +414,12 @@ body,
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #040102;
+  background: var(--t-bg-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 30, 68, 0.35);
+  background: color-mix(in srgb, var(--t-accent) 35%, transparent);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 30, 68, 0.75);
+  background: color-mix(in srgb, var(--t-accent) 75%, transparent);
 }

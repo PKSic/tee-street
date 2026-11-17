@@ -12,7 +12,6 @@ import {
   QrCode,
   Truck,
   RotateCcw,
-  RotateCw,
 } from 'lucide-react';
 import type {
   Locale,
@@ -47,7 +46,6 @@ import { ProductDetailModal } from './components/ProductDetailModal';
 import { AdminPanel } from './components/AdminPanel';
 import { StaticPagesModal } from './components/StaticPagesModal';
 import { AuthModal } from './components/AuthModal';
-import { Video3DModal } from './components/Video3DModal';
 
 export const App: React.FC = () => {
   // Локализация и Тема
@@ -75,6 +73,8 @@ export const App: React.FC = () => {
         mode === 'dark' ||
         (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
       root.classList.toggle('dark', isDark);
+      root.classList.toggle('light', !isDark);
+      root.setAttribute('data-color-scheme', isDark ? 'dark' : 'light');
     };
     applyTheme(theme);
     localStorage.setItem('test_theme', theme);
@@ -238,7 +238,6 @@ export const App: React.FC = () => {
   const [detailProduct, setDetailProduct] = useState<Product | null>(null);
   const [staticPageSlug, setStaticPageSlug] = useState<string | null>(null);
   const [orderSuccessData, setOrderSuccessData] = useState<any | null>(null);
-  const [isVideo3DOpen, setIsVideo3DOpen] = useState(false);
 
   const t = translations[locale];
 
@@ -463,13 +462,9 @@ export const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* Правый блок: Главное видео дропа (Palette 4 Showcase) с интерактивным 3D открытием */}
+              {/* Правый блок: Главное видео дропа (Showcase) */}
               <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-                <div
-                  onClick={() => setIsVideo3DOpen(true)}
-                  className="relative w-full max-w-lg aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-[#00E6FF]/40 shadow-[0_0_50px_rgba(0,230,255,0.35),0_0_80px_rgba(123,44,191,0.25)] bg-[#120722] group cursor-pointer"
-                  title="Нажмите для 3D осмотра, вращения и приближения"
-                >
+                <div className="relative w-full max-w-lg aspect-video rounded-2xl sm:rounded-3xl overflow-hidden border border-[#00E6FF]/40 shadow-[0_0_50px_rgba(255,30,68,0.35)] bg-[#120722] group">
                   {/* Верхний бейдж видео */}
                   <div className="absolute top-2.5 left-2.5 sm:top-3.5 sm:left-3.5 z-10 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-black/70 border border-[#00E6FF]/40 backdrop-blur-md text-[10px] sm:text-[11px] font-mono text-[#00E6FF] flex items-center gap-2 shadow-lg">
                     <span className="w-2 h-2 rounded-full bg-[#00E6FF] animate-ping" />
@@ -489,16 +484,8 @@ export const App: React.FC = () => {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover"
                   />
-
-                  {/* Оверлей-подсказка при наведении: 3D Осмотр */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 backdrop-blur-[2px]">
-                    <div className="px-4 py-2.5 rounded-2xl bg-black/85 border border-[#00E6FF] text-xs font-bold text-[#00E6FF] shadow-[0_0_25px_rgba(0,230,255,0.5)] flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                      <RotateCw className="w-4 h-4 text-[#00E6FF] animate-spin" style={{ animationDuration: '6s' }} />
-                      <span>3D Осмотр // Покрутить и приблизить</span>
-                    </div>
-                  </div>
 
                   {/* Мягкий градиент снизу */}
                   <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#120722]/40 via-transparent to-transparent" />
@@ -793,17 +780,6 @@ export const App: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Интерактивный 3D инспектор / Видеомодалка */}
-      <Video3DModal
-        isOpen={isVideo3DOpen}
-        onClose={() => setIsVideo3DOpen(false)}
-        colors={colors}
-        onOpenProductDetails={() => {
-          const flagship = products.find((p) => p.model_sku === 'TSH-SMILE-01') || products[0];
-          setDetailProduct(flagship);
-        }}
-      />
 
       {/* Быстрый просмотр / Карточка товара */}
       <ProductDetailModal
