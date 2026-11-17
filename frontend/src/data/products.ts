@@ -239,11 +239,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     image_url: '/products/acid-smile.png',
     images_by_color: makeProductImages('acid-smile'),
     print_style: 'acid-wasabi',
-    print_title: 'VOLTAGE // ACID',
-    print_subtitle: 'HIGH VOLTAGE',
+    print_title: 'ACID VOLTAGE',
+    print_subtitle: 'HIGH VOLTAGE // STREET DEVIATION',
     name: 'Acid Voltage Wash Streetwear Tee',
-    short_description: 'Кислотный смайл с электрическими молниями в глазах и надписью KEEP IT ORIGINAL.',
-    description: 'Уличный оверсайз в духе Off-White и берлинского техно. Высококонтрастная графика с ярким ядовитым оттенком.',
+    short_description: 'Винтажный оверсайз Acid Wash 240 г/м² с кибер-черепом под напряжением 220V и надписью HIGH VOLTAGE STREET DEVIATION.',
+    description: 'Культовый уличный оверсайз с эффектом винтажной выварки Acid Wash плотностью 240 г/м². Детализированный принт кибернетического черепа в наушниках с электрическими разрядами и предупреждающими знаками. Доступна в 3 аутентичных вываренных расцветках: Графит Acid Wash, Моховой лайм и Электрик-циан.',
     variants: [],
   },
   {
@@ -323,7 +323,7 @@ export const PRODUCT_AVAILABLE_COLORS: Record<string, string[]> = {
   'prod-002': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-003': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-004': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
-  'prod-005': ['black-sesame', 'acid-lime'], // Черный и кислотный лайм
+  'prod-005': ['black-sesame', 'acid-lime', 'mana-cyan'], // 3 реальных цвета винтажной выварки: графит, моховой лайм и электрик-циан!
   'prod-006': ['black-sesame', 'mana-cyan'], // Черный и циан космос
   'prod-007': ['black-sesame', 'cold-ice'], // Базовый черный и белый
   'prod-008': ['black-sesame'], // Только глубокий черный
