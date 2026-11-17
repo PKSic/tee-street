@@ -48,6 +48,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { StaticPagesModal } from './components/StaticPagesModal';
 import { AuthModal } from './components/AuthModal';
 import { Video3DModal } from './components/Video3DModal';
+import { ThemeStudio, type ThemeId } from './components/ThemeStudio';
 
 export const App: React.FC = () => {
   // Локализация и Тема
@@ -57,6 +58,15 @@ export const App: React.FC = () => {
   const [theme, setTheme] = useState<ThemeMode>(() => {
     return (localStorage.getItem('test_theme') as ThemeMode) || 'dark';
   });
+  // Цветовая палитра и стиль сайта TEE STREET (по умолчанию Стиль 1 - Stealth Onyx & Chrome)
+  const [siteTheme, setSiteTheme] = useState<ThemeId>(() => {
+    return (localStorage.getItem('tee_street_active_theme') as ThemeId) || 'stealth';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', siteTheme);
+    localStorage.setItem('tee_street_active_theme', siteTheme);
+  }, [siteTheme]);
 
   useEffect(() => {
     localStorage.setItem('test_locale', locale);
@@ -884,6 +894,9 @@ export const App: React.FC = () => {
           localStorage.setItem('test_user', JSON.stringify(u));
         }}
       />
+
+      {/* Интерактивная студия выбора и оценки стилей (1-10) */}
+      <ThemeStudio currentTheme={siteTheme} onSelectTheme={setSiteTheme} />
     </div>
   );
 };
