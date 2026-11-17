@@ -3,177 +3,42 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* =====================================================================
-   TEE STREET DESIGN SYSTEM & THEME ENGINE (5 STYLES)
+   TEE STREET — CYBER CRIMSON & BLOOD RED (OFFICIAL RELEASE DESIGN)
+   =====================================================================
+   Глубокий угольно-черный обсидиан, агрессивный алый неон #FF1E44,
+   кристально четкий высококонтрастный текст и рубиновое свечение.
    ===================================================================== */
 
-/* 1. STEALTH ONYX & CHROME SILVER (По умолчанию)
-   Премиальный матовый графит, титан, полированный стальной хром и чистый белый */
-:root, [data-theme="stealth"] {
-  --t-theme-name: "Stealth Onyx";
-  --t-bg-app: #08080A;
-  --t-bg-surface: #101014;
-  --t-bg-elevated: #181820;
-  --t-bg-dark: #050507;
-  --t-bg-card: rgba(18, 18, 24, 0.75);
-  --t-bg-card-hover: rgba(28, 28, 38, 0.9);
-
-  --t-accent: #FFFFFF;
-  --t-accent-sec: #94A3B8;
-  --t-accent-hl: #E2E8F0;
-  --t-accent-rgb: 255, 255, 255;
-  --t-accent-glow: rgba(255, 255, 255, 0.22);
-  
-  --t-btn-text: #050507;
-  --t-btn-bg: #FFFFFF;
-
-  --t-border: rgba(255, 255, 255, 0.12);
-  --t-border-hover: rgba(255, 255, 255, 0.45);
-
-  --t-text-main: #FFFFFF;
-  --t-text-muted: #94A3B8;
-  --t-text-subtle: #64748B;
-
-  --t-radial-1: rgba(255, 255, 255, 0.08);
-  --t-radial-2: rgba(148, 163, 184, 0.05);
-
-  --t-gradient: linear-gradient(135deg, #FFFFFF 0%, #CBD5E1 50%, #64748B 100%);
-  --t-gradient-btn: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 100%);
-}
-
-/* 2. CYBER CRIMSON & BLOOD RED
-   Агрессивный темный киберпанк / Techwear: угольно-черный, алый неон #FF1E44 и рубин */
-[data-theme="crimson"] {
+:root, [data-theme="crimson"] {
   --t-theme-name: "Cyber Crimson";
-  --t-bg-app: #090406;
-  --t-bg-surface: #14070B;
-  --t-bg-elevated: #220A12;
-  --t-bg-dark: #050203;
-  --t-bg-card: rgba(26, 10, 16, 0.75);
-  --t-bg-card-hover: rgba(42, 14, 24, 0.9);
+  --t-bg-app: #080305;
+  --t-bg-surface: #12060A;
+  --t-bg-elevated: #1D0A11;
+  --t-bg-dark: #040102;
+  --t-bg-card: rgba(22, 8, 14, 0.85);
+  --t-bg-card-hover: rgba(36, 12, 22, 0.98);
 
   --t-accent: #FF1E44;
-  --t-accent-sec: #FF6B85;
+  --t-accent-sec: #FF5E7E;
   --t-accent-hl: #FFA3B5;
   --t-accent-rgb: 255, 30, 68;
-  --t-accent-glow: rgba(255, 30, 68, 0.35);
+  --t-accent-glow: rgba(255, 30, 68, 0.45);
 
   --t-btn-text: #FFFFFF;
   --t-btn-bg: #FF1E44;
 
-  --t-border: rgba(255, 30, 68, 0.22);
-  --t-border-hover: rgba(255, 30, 68, 0.65);
+  --t-border: rgba(255, 30, 68, 0.25);
+  --t-border-hover: rgba(255, 30, 68, 0.75);
 
   --t-text-main: #FFFFFF;
-  --t-text-muted: #A3A3A3;
-  --t-text-subtle: #737373;
+  --t-text-muted: #E2E8F0;
+  --t-text-subtle: #CBD5E1;
 
-  --t-radial-1: rgba(255, 30, 68, 0.12);
-  --t-radial-2: rgba(225, 29, 72, 0.08);
+  --t-radial-1: rgba(255, 30, 68, 0.14);
+  --t-radial-2: rgba(225, 29, 72, 0.09);
 
   --t-gradient: linear-gradient(135deg, #FF1E44 0%, #E11D48 50%, #9F1239 100%);
   --t-gradient-btn: linear-gradient(135deg, #FF1E44 0%, #E11D48 100%);
-}
-
-/* 3. ACID MATRIX & TOXIC EMERALD
-   Глубокий черный фон, ядовитый изумруд #00FF88 и кислотный лайм в стиле рейв-культуры */
-[data-theme="emerald"] {
-  --t-theme-name: "Acid Emerald";
-  --t-bg-app: #020904;
-  --t-bg-surface: #05140A;
-  --t-bg-elevated: #092211;
-  --t-bg-dark: #010502;
-  --t-bg-card: rgba(8, 28, 16, 0.75);
-  --t-bg-card-hover: rgba(14, 46, 26, 0.9);
-
-  --t-accent: #00FF88;
-  --t-accent-sec: #34D399;
-  --t-accent-hl: #A7F3D0;
-  --t-accent-rgb: 0, 255, 136;
-  --t-accent-glow: rgba(0, 255, 136, 0.35);
-
-  --t-btn-text: #02180C;
-  --t-btn-bg: #00FF88;
-
-  --t-border: rgba(0, 255, 136, 0.22);
-  --t-border-hover: rgba(0, 255, 136, 0.65);
-
-  --t-text-main: #FFFFFF;
-  --t-text-muted: #94A3B8;
-  --t-text-subtle: #64748B;
-
-  --t-radial-1: rgba(0, 255, 136, 0.12);
-  --t-radial-2: rgba(16, 185, 129, 0.07);
-
-  --t-gradient: linear-gradient(135deg, #00FF88 0%, #10B981 50%, #047857 100%);
-  --t-gradient-btn: linear-gradient(135deg, #00FF88 0%, #10B981 100%);
-}
-
-/* 4. SUNSET AMBER & SOLAR ORANGE
-   Темный антрацит, неоновый электрический оранжевый #FF6A00 и солнечный золотой янтарный акцент */
-[data-theme="amber"] {
-  --t-theme-name: "Sunset Amber";
-  --t-bg-app: #0A0602;
-  --t-bg-surface: #140D05;
-  --t-bg-elevated: #221508;
-  --t-bg-dark: #050301;
-  --t-bg-card: rgba(28, 18, 8, 0.75);
-  --t-bg-card-hover: rgba(45, 28, 12, 0.9);
-
-  --t-accent: #FF6A00;
-  --t-accent-sec: #FBBF24;
-  --t-accent-hl: #FDE047;
-  --t-accent-rgb: 255, 106, 0;
-  --t-accent-glow: rgba(255, 106, 0, 0.35);
-
-  --t-btn-text: #FFFFFF;
-  --t-btn-bg: #FF6A00;
-
-  --t-border: rgba(255, 106, 0, 0.22);
-  --t-border-hover: rgba(255, 106, 0, 0.65);
-
-  --t-text-main: #FFFFFF;
-  --t-text-muted: #A8A29E;
-  --t-text-subtle: #78716C;
-
-  --t-radial-1: rgba(255, 106, 0, 0.12);
-  --t-radial-2: rgba(245, 158, 11, 0.07);
-
-  --t-gradient: linear-gradient(135deg, #FF6A00 0%, #F59E0B 50%, #B45309 100%);
-  --t-gradient-btn: linear-gradient(135deg, #FF6A00 0%, #F59E0B 100%);
-}
-
-/* 5. CYBER MANA & ELECTRIC CYAN
-   Оригинальный неоновый киберпанк Palette 4: индиго, неоновый циан #00E6FF и фуксия */
-[data-theme="cyberpunk"] {
-  --t-theme-name: "Cyber Mana";
-  --t-bg-app: #120722;
-  --t-bg-surface: #1E0C38;
-  --t-bg-elevated: #2D0F4B;
-  --t-bg-dark: #0B0314;
-  --t-bg-card: rgba(45, 15, 75, 0.65);
-  --t-bg-card-hover: rgba(65, 25, 105, 0.85);
-
-  --t-accent: #00E6FF;
-  --t-accent-sec: #7B2CBF;
-  --t-accent-hl: #FF286E;
-  --t-accent-rgb: 0, 230, 255;
-  --t-accent-glow: rgba(0, 230, 255, 0.45);
-
-  --t-btn-text: #0B0314;
-  --t-btn-bg: #00E6FF;
-
-  --t-border: rgba(0, 230, 255, 0.2);
-  --t-border-hover: rgba(0, 230, 255, 0.65);
-
-  --t-text-main: #F8FAFC;
-  --t-text-muted: #94A3B8;
-  --t-text-subtle: #64748B;
-
-  --t-radial-1: rgba(0, 230, 255, 0.08);
-  --t-radial-2: rgba(123, 44, 191, 0.07);
-
-  --t-gradient: linear-gradient(135deg, #00E6FF 0%, #7B2CBF 50%, #FF286E 100%);
-  --t-gradient-btn: linear-gradient(135deg, #00E6FF 0%, #7B2CBF 100%);
 }
 
 /* =====================================================================
@@ -188,13 +53,12 @@ html, body {
   scroll-behavior: smooth;
   background-color: var(--t-bg-app);
   color: var(--t-text-main);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-::selection,
-[data-theme] ::selection {
+::selection {
   background-color: var(--t-accent) !important;
-  color: var(--t-btn-text) !important;
+  color: #FFFFFF !important;
 }
 
 h1, h2, h3, .font-display {
@@ -207,223 +71,212 @@ code, .font-mono {
 }
 
 /* =====================================================================
-   DYNAMIC THEME OVERRIDES FOR PREVIOUS PALETTE CLASSES
+   ВЫСОКОКОНТРАСТНАЯ ЧИТАЕМОСТЬ ТЕКСТА
    ===================================================================== */
 
-/* Backgrounds */
+/* Осветляем приглушенные оттенки slate для максимальной контрастности */
+.text-slate-400 {
+  color: #CBD5E1 !important;
+}
+
+.text-slate-500 {
+  color: #94A3B8 !important;
+}
+
+.text-slate-300 {
+  color: #F1F5F9 !important;
+}
+
+/* =====================================================================
+   ФОНЫ И ПОВЕРХНОСТИ (CYBER CRIMSON)
+   ===================================================================== */
+
 body,
-.bg-\[\#120722\],
-[data-theme] .bg-\[\#120722\] {
+.bg-\[\#120722\] {
   background-color: var(--t-bg-app) !important;
 }
 
-.bg-\[\#1E0C38\],
-[data-theme] .bg-\[\#1E0C38\] {
+.bg-\[\#1E0C38\] {
   background-color: var(--t-bg-surface) !important;
 }
 
 .bg-\[\#0B0314\],
-[data-theme] .bg-\[\#0B0314\] {
+.bg-\[\#0C0418\] {
   background-color: var(--t-bg-dark) !important;
 }
 
 .bg-\[\#160A29\],
-.bg-\[\#2D0F4B\],
-[data-theme] .bg-\[\#160A29\],
-[data-theme] .bg-\[\#2D0F4B\] {
+.bg-\[\#2D0F4B\] {
   background-color: var(--t-bg-elevated) !important;
 }
 
-.bg-\[\#0C0418\],
-[data-theme] .bg-\[\#0C0418\] {
-  background-color: var(--t-bg-dark) !important;
-}
+/* =====================================================================
+   АКЦЕНТНЫЙ ТЕКСТ И ИКОНКИ
+   ===================================================================== */
 
-/* Accent Text */
-.text-\[\#00E6FF\],
-[data-theme] .text-\[\#00E6FF\] {
+.text-\[\#00E6FF\] {
   color: var(--t-accent) !important;
 }
 
-.text-\[\#9BD746\],
-[data-theme] .text-\[\#9BD746\] {
+.text-\[\#9BD746\] {
   color: var(--t-accent-sec) !important;
 }
 
-.text-\[\#FF286E\],
-[data-theme] .text-\[\#FF286E\] {
+.text-\[\#FF286E\] {
   color: var(--t-accent-hl) !important;
 }
 
-.text-\[\#7B2CBF\],
-[data-theme] .text-\[\#7B2CBF\] {
+.text-\[\#7B2CBF\] {
   color: var(--t-accent-sec) !important;
 }
 
-.text-\[\#0B0314\],
-[data-theme] .text-\[\#0B0314\] {
+.text-\[\#0B0314\] {
   color: var(--t-btn-text) !important;
 }
 
-/* Borders */
-.border-\[\#00E6FF\],
-[data-theme] .border-\[\#00E6FF\] {
+/* =====================================================================
+   ГРАНИЦЫ И БОРДЮРЫ
+   ===================================================================== */
+
+.border-\[\#00E6FF\] {
   border-color: var(--t-accent) !important;
 }
 
-.border-\[\#00E6FF\]\/10,
-[data-theme] .border-\[\#00E6FF\]\/10 {
-  border-color: color-mix(in srgb, var(--t-accent) 10%, transparent) !important;
+.border-\[\#00E6FF\]\/10 {
+  border-color: rgba(255, 30, 68, 0.12) !important;
 }
 
-.border-\[\#00E6FF\]\/15,
-[data-theme] .border-\[\#00E6FF\]\/15 {
-  border-color: color-mix(in srgb, var(--t-accent) 15%, transparent) !important;
+.border-\[\#00E6FF\]\/15 {
+  border-color: rgba(255, 30, 68, 0.18) !important;
 }
 
-.border-\[\#00E6FF\]\/20,
-[data-theme] .border-\[\#00E6FF\]\/20 {
-  border-color: color-mix(in srgb, var(--t-accent) 20%, transparent) !important;
+.border-\[\#00E6FF\]\/20 {
+  border-color: rgba(255, 30, 68, 0.24) !important;
 }
 
-.border-\[\#00E6FF\]\/30,
-[data-theme] .border-\[\#00E6FF\]\/30 {
-  border-color: color-mix(in srgb, var(--t-accent) 30%, transparent) !important;
+.border-\[\#00E6FF\]\/30 {
+  border-color: rgba(255, 30, 68, 0.35) !important;
 }
 
-.border-\[\#00E6FF\]\/40,
-[data-theme] .border-\[\#00E6FF\]\/40 {
-  border-color: color-mix(in srgb, var(--t-accent) 40%, transparent) !important;
+.border-\[\#00E6FF\]\/40 {
+  border-color: rgba(255, 30, 68, 0.45) !important;
 }
 
-.border-\[\#00E6FF\]\/50,
-[data-theme] .border-\[\#00E6FF\]\/50 {
-  border-color: color-mix(in srgb, var(--t-accent) 50%, transparent) !important;
+.border-\[\#00E6FF\]\/50 {
+  border-color: rgba(255, 30, 68, 0.55) !important;
 }
 
-.border-\[\#00E6FF\]\/60,
-[data-theme] .border-\[\#00E6FF\]\/60 {
-  border-color: color-mix(in srgb, var(--t-accent) 60%, transparent) !important;
+.border-\[\#00E6FF\]\/60 {
+  border-color: rgba(255, 30, 68, 0.65) !important;
 }
 
-.border-\[\#00E6FF\]\/80,
-[data-theme] .border-\[\#00E6FF\]\/80 {
-  border-color: color-mix(in srgb, var(--t-accent) 80%, transparent) !important;
+.border-\[\#00E6FF\]\/80 {
+  border-color: rgba(255, 30, 68, 0.85) !important;
 }
 
-/* Background Accents & Translucency */
-.bg-\[\#00E6FF\],
-[data-theme] .bg-\[\#00E6FF\] {
+/* =====================================================================
+   АКЦЕНТНЫЕ ЗАЛИВКИ И ПЛАШКИ
+   ===================================================================== */
+
+.bg-\[\#00E6FF\] {
   background-color: var(--t-accent) !important;
+  color: #FFFFFF !important;
 }
 
-.bg-\[\#00E6FF\]\/5,
-[data-theme] .bg-\[\#00E6FF\]\/5 {
-  background-color: color-mix(in srgb, var(--t-accent) 5%, transparent) !important;
+.bg-\[\#00E6FF\]\/5 {
+  background-color: rgba(255, 30, 68, 0.05) !important;
 }
 
-.bg-\[\#00E6FF\]\/10,
-[data-theme] .bg-\[\#00E6FF\]\/10 {
-  background-color: color-mix(in srgb, var(--t-accent) 10%, transparent) !important;
+.bg-\[\#00E6FF\]\/10 {
+  background-color: rgba(255, 30, 68, 0.12) !important;
 }
 
-.bg-\[\#00E6FF\]\/15,
-[data-theme] .bg-\[\#00E6FF\]\/15 {
-  background-color: color-mix(in srgb, var(--t-accent) 15%, transparent) !important;
+.bg-\[\#00E6FF\]\/15 {
+  background-color: rgba(255, 30, 68, 0.18) !important;
 }
 
-.bg-\[\#00E6FF\]\/20,
-[data-theme] .bg-\[\#00E6FF\]\/20 {
-  background-color: color-mix(in srgb, var(--t-accent) 20%, transparent) !important;
+.bg-\[\#00E6FF\]\/20 {
+  background-color: rgba(255, 30, 68, 0.24) !important;
 }
 
-.bg-\[\#00E6FF\]\/30,
-[data-theme] .bg-\[\#00E6FF\]\/30 {
-  background-color: color-mix(in srgb, var(--t-accent) 30%, transparent) !important;
+.bg-\[\#00E6FF\]\/30 {
+  background-color: rgba(255, 30, 68, 0.35) !important;
 }
 
-/* Hovers */
-.hover\:bg-\[\#00E6FF\]:hover,
-[data-theme] .hover\:bg-\[\#00E6FF\]:hover {
+/* =====================================================================
+   ХОВЕРЫ И ИНТЕРАКТИВ
+   ===================================================================== */
+
+.hover\:bg-\[\#00E6FF\]:hover {
   background-color: var(--t-accent) !important;
-  color: var(--t-btn-text) !important;
+  color: #FFFFFF !important;
 }
 
-.hover\:text-\[\#00E6FF\]:hover,
-[data-theme] .hover\:text-\[\#00E6FF\]:hover {
+.hover\:text-\[\#00E6FF\]:hover {
   color: var(--t-accent) !important;
 }
 
-.hover\:border-\[\#00E6FF\]:hover,
-[data-theme] .hover\:border-\[\#00E6FF\]:hover {
+.hover\:border-\[\#00E6FF\]:hover {
   border-color: var(--t-accent) !important;
 }
 
-.hover\:border-\[\#00E6FF\]\/60:hover,
-[data-theme] .hover\:border-\[\#00E6FF\]\/60:hover {
-  border-color: color-mix(in srgb, var(--t-accent) 60%, transparent) !important;
+.hover\:border-\[\#00E6FF\]\/60:hover {
+  border-color: rgba(255, 30, 68, 0.7) !important;
 }
 
-.hover\:border-\[\#00E6FF\]\/80:hover,
-[data-theme] .hover\:border-\[\#00E6FF\]\/80:hover {
-  border-color: color-mix(in srgb, var(--t-accent) 80%, transparent) !important;
+.hover\:border-\[\#00E6FF\]\/80:hover {
+  border-color: rgba(255, 30, 68, 0.9) !important;
 }
 
-/* Gradients */
-.from-\[\#00E6FF\],
-[data-theme] .from-\[\#00E6FF\] {
-  --tw-gradient-from: var(--t-accent) var(--tw-gradient-from-position) !important;
+/* =====================================================================
+   ГРАДИЕНТЫ
+   ===================================================================== */
+
+.from-\[\#00E6FF\] {
+  --tw-gradient-from: #FF1E44 var(--tw-gradient-from-position) !important;
 }
 
 .via-\[\#7B2CBF\],
-.via-\[\#0297DE\],
-[data-theme] .via-\[\#7B2CBF\],
-[data-theme] .via-\[\#0297DE\] {
-  --tw-gradient-via: var(--t-accent-sec) var(--tw-gradient-via-position) !important;
+.via-\[\#0297DE\] {
+  --tw-gradient-via: #E11D48 var(--tw-gradient-via-position) !important;
 }
 
 .to-\[\#FF286E\],
-.to-\[\#7B2CBF\],
-[data-theme] .to-\[\#FF286E\],
-[data-theme] .to-\[\#7B2CBF\] {
-  --tw-gradient-to: var(--t-accent-hl) var(--tw-gradient-to-position) !important;
+.to-\[\#7B2CBF\] {
+  --tw-gradient-to: #FF6B85 var(--tw-gradient-to-position) !important;
 }
 
-/* Shadows & Glows */
-.shadow-\[0_0_15px_rgba\(0\,230\,255\,0\.25\)\],
-[data-theme] .shadow-\[0_0_15px_rgba\(0\,230\,255\,0\.25\)\] {
-  box-shadow: 0 0 15px var(--t-accent-glow) !important;
+/* =====================================================================
+   СВЕЧЕНИЕ И ТЕНИ (CRIMSON GLOW)
+   ===================================================================== */
+
+.shadow-\[0_0_15px_rgba\(0\,230\,255\,0\.25\)\] {
+  box-shadow: 0 0 15px rgba(255, 30, 68, 0.35) !important;
 }
 
-.shadow-\[0_0_20px_rgba\(0\,230\,255\,0\.3\)\],
-[data-theme] .shadow-\[0_0_20px_rgba\(0\,230\,255\,0\.3\)\] {
-  box-shadow: 0 0 20px var(--t-accent-glow) !important;
+.shadow-\[0_0_20px_rgba\(0\,230\,255\,0\.3\)\] {
+  box-shadow: 0 0 20px rgba(255, 30, 68, 0.4) !important;
 }
 
-.shadow-\[0_0_25px_rgba\(0\,230\,255\,0\.35\)\],
-[data-theme] .shadow-\[0_0_25px_rgba\(0\,230\,255\,0\.35\)\] {
-  box-shadow: 0 0 25px var(--t-accent-glow) !important;
+.shadow-\[0_0_25px_rgba\(0\,230\,255\,0\.35\)\] {
+  box-shadow: 0 0 25px rgba(255, 30, 68, 0.45) !important;
 }
 
-.shadow-\[0_0_30px_rgba\(0\,230\,255\,0\.45\)\],
-[data-theme] .shadow-\[0_0_30px_rgba\(0\,230\,255\,0\.45\)\] {
-  box-shadow: 0 0 30px var(--t-accent-glow) !important;
+.shadow-\[0_0_30px_rgba\(0\,230\,255\,0\.45\)\] {
+  box-shadow: 0 0 30px rgba(255, 30, 68, 0.55) !important;
 }
 
-.shadow-\[0_0_35px_rgba\(0\,230\,255\,0\.65\)\],
-[data-theme] .shadow-\[0_0_35px_rgba\(0\,230\,255\,0\.65\)\] {
-  box-shadow: 0 0 35px var(--t-accent-glow) !important;
+.shadow-\[0_0_35px_rgba\(0\,230\,255\,0\.65\)\] {
+  box-shadow: 0 0 35px rgba(255, 30, 68, 0.75) !important;
 }
 
-/* Radial Glow Backgrounds */
-.bg-\[radial-gradient\(circle_at_50\%_0\%\,rgba\(0\,230\,255\,0\.08\)\,transparent_50\%\)\],
-[data-theme] .bg-\[radial-gradient\(circle_at_50\%_0\%\,rgba\(0\,230\,255\,0\.08\)\,transparent_50\%\)\] {
-  background-image: radial-gradient(circle at 50% 0%, var(--t-radial-1), transparent 50%) !important;
+/* Фоновые радиальные свечения */
+.bg-\[radial-gradient\(circle_at_50\%_0\%\,rgba\(0\,230\,255\,0\.08\)\,transparent_50\%\)\] {
+  background-image: radial-gradient(circle at 50% 0%, rgba(255, 30, 68, 0.14), transparent 50%) !important;
 }
 
-.bg-\[radial-gradient\(circle_at_80\%_60\%\,rgba\(123\,44\,191\,0\.07\)\,transparent_50\%\)\],
-[data-theme] .bg-\[radial-gradient\(circle_at_80\%_60\%\,rgba\(123\,44\,191\,0\.07\)\,transparent_50\%\)\] {
-  background-image: radial-gradient(circle at 80% 60%, var(--t-radial-2), transparent 50%) !important;
+.bg-\[radial-gradient\(circle_at_80\%_60\%\,rgba\(123\,44\,191\,0\.07\)\,transparent_50\%\)\] {
+  background-image: radial-gradient(circle at 80% 60%, rgba(225, 29, 72, 0.09), transparent 50%) !important;
 }
 
 /* Glassmorphism утилиты */
@@ -436,7 +289,7 @@ body,
 
 .glass-panel-hover:hover {
   border-color: var(--t-border-hover);
-  box-shadow: 0 0 30px var(--t-accent-glow);
+  box-shadow: 0 0 30px rgba(255, 30, 68, 0.35);
 }
 
 /* Скроллбары */
@@ -453,12 +306,12 @@ body,
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--t-bg-dark);
+  background: #040102;
 }
 ::-webkit-scrollbar-thumb {
-  background: color-mix(in srgb, var(--t-accent) 30%, transparent);
+  background: rgba(255, 30, 68, 0.35);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in srgb, var(--t-accent) 60%, transparent);
+  background: rgba(255, 30, 68, 0.75);
 }
