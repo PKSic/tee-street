@@ -170,11 +170,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     image_url: '/products/rabbit-anarchy.png',
     images_by_color: makeProductImages('rabbit-anarchy'),
     print_style: 'potion-cyan',
-    print_title: 'ANARCHY // RABBIT',
-    print_subtitle: 'CHAOS # 02',
+    print_title: 'RABBIT ANARCHY',
+    print_subtitle: 'STITCHED CHAOS // STAY REBEL',
     name: 'Rabbit Anarchy Stitched Oversize Tee',
-    short_description: 'Уличный оверсайз с неоновым прошитым кибер-кроликом и надписью ANARCHY.',
-    description: 'Коллекционная модель из лимитированного дропа. Каждый экземпляр имеет уникальный рисунок выварки Acid Wash и шелковый ярлык с индивидуальным номером серии.',
+    short_description: 'Уличный оверсайз 250 г/м² с прошитым панковским кроликом, анархией и надписью STITCHED CHAOS STAY REBEL.',
+    description: 'Коллекционный оверсайз из вареного хлопка Acid Wash 250 г/м². Бунтарский принт с прошитым кроликом-анархистом, шелкография премиум-стойкости к 80+ стиркам. Доступна в 4 реальных расцветках: Черный, Белый, Тёмно-фиолетовый и Графит.',
     variants: [],
   },
   {
@@ -320,7 +320,7 @@ export const INITIAL_PRODUCTS: Product[] = [
 // Карта реально доступных цветов для каждой модели
 export const PRODUCT_AVAILABLE_COLORS: Record<string, string[]> = {
   'prod-001': ['black-sesame', 'cold-ice', 'mana-cyan', 'acid-lime', 'cyber-pink', 'velvet-indigo'], // Все 6 цветов из реальных фото Ozon!
-  'prod-002': ['black-sesame', 'cold-ice'], // Черный и вываренный светлый
+  'prod-002': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-003': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-004': ['black-sesame', 'cold-ice', 'cyber-pink'], // Черный, хром и кибер-розовый
   'prod-005': ['black-sesame', 'acid-lime'], // Черный и кислотный лайм
