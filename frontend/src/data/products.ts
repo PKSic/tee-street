@@ -262,11 +262,11 @@ export const INITIAL_PRODUCTS: Product[] = [
     image_url: '/products/astronaut-void.png',
     images_by_color: makeProductImages('astronaut-void'),
     print_style: 'cyber-heart',
-    print_title: 'OFFLINE // VOID',
-    print_subtitle: 'NO SIGNAL # 06',
+    print_title: 'ASTRONAUT OFF_LINE',
+    print_subtitle: 'LOST IN THE VOID // SPACE EXPLORER',
     name: 'Astronaut Offline Void Heavyweight Tee',
-    short_description: 'Космический киберпанк с неоновым шлемом астронавта и надписью LOST IN SPACE.',
-    description: 'Дерзкий космический стритвир со светящимися в темноте неоновыми акцентами.',
+    short_description: 'Космический кибер-оверсайз 240 г/м² с астронавтом в червоточине и принтом ASTRONAUT OFF_LINE LOST IN THE VOID.',
+    description: 'Премиальный плотный оверсайз из гребенного хлопка пенье. Детализированная графика астронавта, затягиваемого в неоновую червоточину космоса, с глитч-эффектом и статусными метками. Доступна в 3 реальных расцветках: Черный, Белый и Вываренный графит.',
     variants: [],
   },
   {
@@ -324,7 +324,7 @@ export const PRODUCT_AVAILABLE_COLORS: Record<string, string[]> = {
   'prod-003': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-004': ['black-sesame', 'cold-ice', 'velvet-indigo', 'acid-lime'], // 4 реальных цвета: черный, белый, темный индиго и графит-лайм!
   'prod-005': ['black-sesame', 'acid-lime', 'mana-cyan'], // 3 реальных цвета винтажной выварки: графит, моховой лайм и электрик-циан!
-  'prod-006': ['black-sesame', 'mana-cyan'], // Черный и циан космос
+  'prod-006': ['black-sesame', 'cold-ice', 'acid-lime'], // 3 реальных цвета: черный, белый и темный графит!
   'prod-007': ['black-sesame', 'cold-ice'], // Базовый черный и белый
   'prod-008': ['black-sesame'], // Только глубокий черный
 };
